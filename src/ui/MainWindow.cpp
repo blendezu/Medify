@@ -71,6 +71,8 @@ void MainWindow::buildDashboard() {
     QVBoxLayout *dLayout = new QVBoxLayout(m_dashboardWidget);
     dLayout->setAlignment(Qt::AlignCenter);
     
+    // top credit removed
+
     QLabel *title = new QLabel("Medify");
     title->setStyleSheet("font-size: 26px; font-weight: bold; color: #40e0d0; margin-bottom: 20px;");
     title->setAlignment(Qt::AlignCenter);
@@ -99,6 +101,16 @@ void MainWindow::buildDashboard() {
     }
     
     dLayout->addLayout(grid);
+
+    // Add credit/link at the bottom of the dashboard
+    QLabel *credit = new QLabel();
+    credit->setText("<a href=\"https://github.com/blendezu/Medify\">GitHub</a>");
+    credit->setTextFormat(Qt::RichText);
+    credit->setTextInteractionFlags(Qt::TextBrowserInteraction);
+    credit->setOpenExternalLinks(true);
+    credit->setAlignment(Qt::AlignCenter);
+    credit->setStyleSheet("color: #aaaaaa; margin-top: 18px; font-size: 12px;");
+    dLayout->addWidget(credit);
 }
 
 void MainWindow::onDashboardTileClicked(int index) {
