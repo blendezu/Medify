@@ -73,7 +73,7 @@ void MainWindow::buildDashboard() {
     int row = 0; int col = 0;
     for (int i = 0; i < m_tools.size(); ++i) {
         QToolButton *btn = new QToolButton();
-        btn->setText(m_tools[i]->getIcon() + "\n" + m_tools[i]->getTitle());
+        btn->setText(m_tools[i]->getIcon() + "\n\n" + m_tools[i]->getTitle());
         btn->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
         btn->setFixedSize(140, 120);
         btn->setObjectName("dashboardTile");
