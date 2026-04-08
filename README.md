@@ -13,7 +13,9 @@ The focus is on a fast, clean interface and a modular tool architecture.
 [![Download for macOS](https://img.shields.io/badge/Download-macOS%20.dmg-007AFF?style=for-the-badge&logo=apple&logoColor=white)](https://github.com/blendezu/Medify/releases/download/v0.1/Medify-0.1-macOS.dmg)
 
 ## Demo
-https://github.com/user-attachments/assets/945271ee-cfcc-49b2-811d-371d2ccc22aa
+
+https://github.com/user-attachments/assets/b088e152-2193-40a3-9b30-d8af7da83d8e
+
 
 ## Features (currently in the project)
 
