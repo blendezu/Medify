@@ -15,7 +15,7 @@ file(GLOB_RECURSE EXEC_SRCS
     "include/*.h"
 )
 
-add_executable(Medify ${EXEC_SRCS})
+add_executable(Medify MACOSX_BUNDLE ${EXEC_SRCS})
 
 target_include_directories(Medify PRIVATE 
     include 
@@ -30,3 +30,37 @@ target_include_directories(Medify PRIVATE
     include/tools/video_converter
 )
 target_link_libraries(Medify PRIVATE Qt6::Core Qt6::Gui Qt6::Widgets Qt6::Pdf)
+
+set_target_properties(Medify PROPERTIES
+    MACOSX_BUNDLE_BUNDLE_NAME "Medify"
+    MACOSX_BUNDLE_GUI_IDENTIFIER "com.blendezu.medify"
+    MACOSX_BUNDLE_BUNDLE_VERSION ${PROJECT_VERSION}
+    MACOSX_BUNDLE_SHORT_VERSION_STRING ${PROJECT_VERSION}
+)
+
+include(GNUInstallDirs)
+
+install(TARGETS Medify
+    BUNDLE DESTINATION .
+    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+)
+
+if(QT_VERSION_MAJOR EQUAL 6)
+    qt_generate_deploy_app_script(
+        TARGET Medify
+        OUTPUT_SCRIPT deploy_script
+        NO_UNSUPPORTED_PLATFORM_ERROR
+    )
+    install(SCRIPT ${deploy_script})
+endif()
+
+set(CPACK_PACKAGE_NAME "Medify")
+set(CPACK_PACKAGE_VENDOR "blendezu")
+set(CPACK_PACKAGE_VERSION ${PROJECT_VERSION})
+
+if(APPLE)
+    set(CPACK_GENERATOR "DragNDrop")
+    set(CPACK_PACKAGE_FILE_NAME "${CPACK_PACKAGE_NAME}-${CPACK_PACKAGE_VERSION}-macOS")
+endif()
+
+include(CPack)

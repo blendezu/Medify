@@ -4,12 +4,42 @@
 #include <QPixmap>
 #include <QPainter>
 #include <QFont>
+#include <QStringList>
 #include "ui/MainWindow.h"
+
+namespace {
+
+QStringList macExtraSearchPaths() {
+#ifdef Q_OS_MAC
+    return {"/opt/homebrew/bin", "/usr/local/bin", "/opt/local/bin"};
+#else
+    return {};
+#endif
+}
+
+void ensureUsefulPathOnMac() {
+#ifdef Q_OS_MAC
+    QStringList pathParts = qEnvironmentVariable("PATH").split(':', Qt::SkipEmptyParts);
+    for (const QString& p : macExtraSearchPaths()) {
+        if (!pathParts.contains(p)) {
+            pathParts.append(p);
+        }
+    }
+    qputenv("PATH", pathParts.join(':').toUtf8());
+#endif
+}
+
+}
 
 bool checkDependency(const QString& program) {
     if (!QStandardPaths::findExecutable(program).isEmpty()) {
         return true;
     }
+#ifdef Q_OS_MAC
+    if (!QStandardPaths::findExecutable(program, macExtraSearchPaths()).isEmpty()) {
+        return true;
+    }
+#endif
 #ifdef Q_OS_WIN
     if (!QStandardPaths::findExecutable(program + ".exe").isEmpty()) {
         return true;
@@ -19,6 +49,7 @@ bool checkDependency(const QString& program) {
 }
 
 int main(int argc, char *argv[]) {
+    ensureUsefulPathOnMac();
     QApplication app(argc, argv);
 
     // Set emoji app icon
