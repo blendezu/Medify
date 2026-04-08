@@ -7,7 +7,6 @@
 #include "../tools/compress_media/CompressMediaTool.h"
 #include "../tools/pdf_to_image/PdfToImageTool.h"
 #include "../tools/pdf_to_image/PdfToImageWidget.h"
-#include "../tools/images_to_pdf/ImagesToPdfTool.h"
 #include "../tools/split_pdf/SplitPdfTool.h"
 #include "../tools/extract_audio/ExtractAudioTool.h"
 #include "../tools/audio_converter/AudioConverterTool.h"
@@ -18,7 +17,6 @@ MainWindow::MainWindow(bool hasFFmpeg, bool hasFfprobe, bool hasGs, QWidget *par
 {
     m_tools.append(new CompressMediaTool(this));
     m_tools.append(new PdfToImageTool(this));
-    m_tools.append(new ImagesToPdfTool(this));
     m_tools.append(new SplitPdfTool(this));
     m_tools.append(new ExtractAudioTool(this));
     m_tools.append(new AudioConverterTool(this));

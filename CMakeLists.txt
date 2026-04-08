@@ -24,7 +24,6 @@ target_include_directories(Medify PRIVATE
     include/workers
     include/tools/compress_media
     include/tools/pdf_to_image
-    include/tools/images_to_pdf
     include/tools/split_pdf
     include/tools/extract_audio
     include/tools/audio_converter
