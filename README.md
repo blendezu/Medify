@@ -8,6 +8,10 @@
 **Medify** is a modern desktop app built with **C++/Qt6** for processing media and PDF files.  
 The focus is on a fast, clean interface and a modular tool architecture.
 
+## Download
+
+[![Download for macOS](https://img.shields.io/badge/Download-macOS%20.dmg-007AFF?style=for-the-badge&logo=apple&logoColor=white)](https://github.com/blendezu/Medify/releases/download/v0.1/Medify-0.1-macOS.dmg)
+
 ## Features (currently in the project)
 
 1. **🗜️ Compress Media**  
@@ -63,6 +67,19 @@ cmake --build .
 
 ./Medify
 ```
+
+## Export as macOS `.dmg`
+
+From the project root:
+
+```bash
+mkdir -p build && cd build
+cmake ..
+cmake --build .
+cpack -G DragNDrop
+```
+
+After that, the generated DMG file is located in the `build/` directory (for example `Medify-0.1-macOS.dmg`).
 
 ## Note
 
