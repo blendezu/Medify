@@ -43,6 +43,7 @@ private:
     QListWidget *m_listWidget;
     QWidget *m_settingsContainer;
     QLineEdit *m_saveDirectoryEdit;
+    QLineEdit *m_filenameEdit;
     QProgressBar *m_progressBar;
     QPushButton *m_processButton;
 

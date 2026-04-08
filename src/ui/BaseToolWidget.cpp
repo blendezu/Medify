@@ -82,6 +82,17 @@ void BaseToolWidget::setupUi() {
     scLayout->setContentsMargins(0,0,0,0);
     layout->addWidget(m_settingsContainer);
     
+    // Filename row
+    QHBoxLayout *filenameLayout = new QHBoxLayout();
+    QLabel *filenameLabel = new QLabel("File Name:");
+    filenameLabel->setFixedWidth(100);
+    m_filenameEdit = new QLineEdit(this);
+    m_filenameEdit->setPlaceholderText("Output filename...");
+    filenameLayout->addWidget(filenameLabel);
+    filenameLayout->addWidget(m_filenameEdit);
+    layout->addLayout(filenameLayout);
+
+    // Save To row
     QHBoxLayout *saveLayout = new QHBoxLayout();
     QLabel *saveLabel = new QLabel("Save To:");
     saveLabel->setFixedWidth(100);
@@ -118,6 +129,7 @@ void BaseToolWidget::setTool(ITool* tool) {
     m_listWidget->clear();
     m_internalStack->setCurrentIndex(0);
     m_processButton->setEnabled(false);
+    m_filenameEdit->clear();
     
     QLayoutItem *child;
     while ((child = m_settingsContainer->layout()->takeAt(0)) != nullptr) {
@@ -198,10 +210,16 @@ void BaseToolWidget::addFiles(const QStringList& files) {
     }
     
     if (m_listWidget->count() > 0) {
-        m_internalStack->setCurrentIndex(1); 
+        m_internalStack->setCurrentIndex(1);
         m_processButton->setEnabled(true);
         if (m_listWidget->selectedItems().isEmpty()) {
             m_listWidget->setCurrentRow(0);
+        }
+        // Auto-fill filename with tool suggestion (only when first file is added)
+        if (m_currentTool && m_filenameEdit->text().isEmpty()) {
+            QString firstPath = m_listWidget->item(0)->data(Qt::UserRole).toString();
+            int filterMode = static_cast<int>(getMediaType(firstPath));
+            m_filenameEdit->setText(m_currentTool->getOutputSuggestion(firstPath, filterMode));
         }
     }
 }
@@ -231,9 +249,13 @@ void BaseToolWidget::onProcessClicked() {
         inputPaths.append(m_listWidget->item(i)->data(Qt::UserRole).toString());
     }
 
-    int filterMode = static_cast<int>(getMediaType(inputPaths.first()));
-    QString suggestion = m_currentTool->getOutputSuggestion(inputPaths.first(), filterMode);
-    QString savePath = saveDir + "/" + suggestion;
+    // Use user-provided filename, or fall back to tool suggestion
+    QString filename = m_filenameEdit->text().trimmed();
+    if (filename.isEmpty()) {
+        int filterMode = static_cast<int>(getMediaType(inputPaths.first()));
+        filename = m_currentTool->getOutputSuggestion(inputPaths.first(), filterMode);
+    }
+    QString savePath = saveDir + "/" + filename;
 
     m_processButton->setEnabled(false);
     m_listWidget->setEnabled(false);
