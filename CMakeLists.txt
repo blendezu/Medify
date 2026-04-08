@@ -17,6 +17,14 @@ file(GLOB_RECURSE EXEC_SRCS
 
 add_executable(Medify MACOSX_BUNDLE ${EXEC_SRCS})
 
+if(APPLE)
+    set(APP_ICON_MACOS "${CMAKE_SOURCE_DIR}/assets/Medify.icns")
+    set_source_files_properties(${APP_ICON_MACOS} PROPERTIES
+        MACOSX_PACKAGE_LOCATION "Resources"
+    )
+    target_sources(Medify PRIVATE ${APP_ICON_MACOS})
+endif()
+
 target_include_directories(Medify PRIVATE 
     include 
     include/ui 
@@ -59,8 +67,12 @@ set(CPACK_PACKAGE_VENDOR "blendezu")
 set(CPACK_PACKAGE_VERSION ${PROJECT_VERSION})
 
 if(APPLE)
+    set_target_properties(Medify PROPERTIES
+        MACOSX_BUNDLE_ICON_FILE "Medify.icns"
+    )
     set(CPACK_GENERATOR "DragNDrop")
     set(CPACK_PACKAGE_FILE_NAME "${CPACK_PACKAGE_NAME}-${CPACK_PACKAGE_VERSION}-macOS")
+    set(CPACK_DMG_VOLUME_ICON "${CMAKE_SOURCE_DIR}/assets/Medify.icns")
 endif()
 
 include(CPack)
