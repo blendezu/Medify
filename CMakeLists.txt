@@ -10,15 +10,24 @@ set(CMAKE_AUTOUIC ON)
 
 find_package(Qt6 COMPONENTS Core Gui Widgets REQUIRED)
 
-set(EXEC_SRCS
-    src/main.cpp
-    src/MainWindow.cpp
-    include/MainWindow.h
-    src/ProcessManager.cpp
-    include/ProcessManager.h
+file(GLOB_RECURSE EXEC_SRCS
+    "src/*.cpp"
+    "include/*.h"
 )
 
 add_executable(Medify ${EXEC_SRCS})
 
-target_include_directories(Medify PRIVATE include)
+target_include_directories(Medify PRIVATE 
+    include 
+    include/ui 
+    include/tools 
+    include/workers
+    include/tools/compress_media
+    include/tools/pdf_to_image
+    include/tools/images_to_pdf
+    include/tools/split_pdf
+    include/tools/extract_audio
+    include/tools/audio_converter
+    include/tools/video_converter
+)
 target_link_libraries(Medify PRIVATE Qt6::Core Qt6::Gui Qt6::Widgets)

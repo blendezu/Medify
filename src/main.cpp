@@ -1,7 +1,7 @@
 #include <QApplication>
 #include <QMessageBox>
 #include <QStandardPaths>
-#include "MainWindow.h"
+#include "ui/MainWindow.h"
 
 bool checkDependency(const QString& program) {
     if (!QStandardPaths::findExecutable(program).isEmpty()) {
