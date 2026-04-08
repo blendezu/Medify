@@ -1,52 +1,69 @@
 # Medify 🚀
-![C++](https://img.shields.io/badge/C++-17-blue.svg) ![Qt6](https://img.shields.io/badge/Qt-6.x-41CD52.svg) ![FFmpeg](https://img.shields.io/badge/FFmpeg-Backend-green.svg) ![Ghostscript](https://img.shields.io/badge/Ghostscript-Backend-yellow.svg)
 
-**Medify** is a sleek, dashboard-driven desktop application built with C++ and Qt6 that provides a massive suite of tools for processing and manipulating media and PDFs. It features a fully asynchronous, modular architecture to ensure the UI stays buttery smooth while executing resource-intensive compression, extraction, and formatting tasks.
+![C++](https://img.shields.io/badge/C++-17-blue.svg)
+![Qt6](https://img.shields.io/badge/Qt-6.x-41CD52.svg)
+![FFmpeg](https://img.shields.io/badge/FFmpeg-Backend-green.svg)
+![Ghostscript](https://img.shields.io/badge/Ghostscript-Backend-yellow.svg)
 
-## 🛠️ Features / Tools
+**Medify** is a modern desktop app built with **C++/Qt6** for processing media and PDF files.  
+The focus is on a fast, clean interface and a modular tool architecture.
 
-1. **🗜️ Compress Media:** Dynamically compress Videos, PDFs, and Images down to a specific target byte size using precision binary search and target-bitrate heuristics.
-2. **📄 PDF to Images:** Rasterize and split mult-page PDFs into high-quality images with customized DPI settings.
-3. **🖼️ Images to PDF:** Merge an ordered list of various visual formats (.jpg, .png, etc.) sequentially into a single PDF document.
-4. **✂️ Split PDF:** Extract exact page-ranges from monolithic PDFs without quality loss.
-5. **🎵 Extract Audio:** Strips out the audio tracks of video containers (MP4, MKV) and exports them cleanly to `.mp3` or `.wav`.
-6. **🎧 Audio Converter:** Convert between major high-fidelity audio formats seamlessly.
-7. **🎬 Video Converter:** Multiplex and transcode video files between different container formats.
+## Features (currently in the project)
 
-## 🔌 Architecture
+1. **🗜️ Compress Media**  
+   Compresses media (e.g., video/image/PDF) to a target size.
 
-Medify runs completely on a highly extensible **Plugin-Oriented Architecture**:
-- **`ITool` Interface:** Every tool acts as an autonomous UI and settings-generation widget.
-- **`BaseWorker` Abstract Component:** Every tool possesses an isolated background threaded worker interacting securely with the user interface via signal/slot emissions, ensuring no cross-tool contamination.
+2. **📄 PDF to Images**  
+   Converts PDF pages into images with configurable output quality (e.g., DPI).
 
-Detailed technical logic for each component can be found in the `/docs` folder.
+3. **✂️ Split PDF**  
+   Extracts selected page ranges from PDF files.
 
-## ⚙️ Prerequisites
-To build and run Medify, ensure you have the following system dependencies installed and accessible in your system `PATH`:
-- **Qt6** (Core, Gui, Widgets modules)
-- **CMake** (v3.16+)
-- **FFmpeg & FFprobe** (For core Audio/Video handling)
-- **Ghostscript (`gs`)** (For optimal PDF formatting and modification)
+4. **🎵 Extract Audio**  
+   Extracts audio tracks from video files and saves them as audio formats.
 
-_If you are on macOS, these dependencies can be installed easily using Homebrew:_
+5. **🎧 Audio Converter**  
+   Converts audio files between common formats.
+
+6. **🎬 Video Converter**  
+   Converts/transcodes video files into other formats/containers.
+
+## Key Highlights
+
+- **Dashboard UI with tool tiles** for quick access.
+- **Modular architecture**: each tool is implemented as an independent component.
+- **Dedicated specialized widgets** (e.g., for PDF workflows) alongside a generic tool view.
+- **Asynchronous processing** via a worker approach to keep the UI responsive.
+- **Clear Qt signal/slot communication** between UI and processing layers.
+
+## Requirements
+
+The following dependencies should be installed and available in your system `PATH`:
+
+- **Qt6** (Core, Gui, Widgets)
+- **CMake** (>= 3.16)
+- **FFmpeg + FFprobe**
+- **Ghostscript (`gs`)**
+
+Example (macOS/Homebrew):
+
 ```bash
 brew install qt6 ffmpeg ghostscript
 ```
 
-## 🚀 Build Instructions
-Clone the repository and build the project utilizing CMake:
+## Build
 
 ```bash
 git clone https://github.com/blendezu/Medify.git
 cd Medify
 
-# Generate Build System
 mkdir build && cd build
 cmake ..
-
-# Compile the Engine
 cmake --build .
 
-# Run the Toolkit
 ./Medify
 ```
+
+## Note
+
+Additional technical details can be documented and maintained in the corresponding tool modules and internal docs.
