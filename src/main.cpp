@@ -1,6 +1,9 @@
 #include <QApplication>
 #include <QMessageBox>
 #include <QStandardPaths>
+#include <QPixmap>
+#include <QPainter>
+#include <QFont>
 #include "ui/MainWindow.h"
 
 bool checkDependency(const QString& program) {
@@ -17,6 +20,17 @@ bool checkDependency(const QString& program) {
 
 int main(int argc, char *argv[]) {
     QApplication app(argc, argv);
+
+    // Set emoji app icon
+    QPixmap iconPixmap(128, 128);
+    iconPixmap.fill(Qt::transparent);
+    QPainter painter(&iconPixmap);
+    QFont emojiFont;
+    emojiFont.setPointSize(80);
+    painter.setFont(emojiFont);
+    painter.drawText(iconPixmap.rect(), Qt::AlignCenter, "📎");
+    painter.end();
+    app.setWindowIcon(QIcon(iconPixmap));
 
     bool hasFFmpeg = checkDependency("ffmpeg");
     bool hasFfprobe = checkDependency("ffprobe");
