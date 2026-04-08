@@ -114,7 +114,7 @@ void BaseToolWidget::setupUi() {
     m_progressBar->setVisible(false);
     layout->addWidget(m_progressBar);
     
-    m_processButton = new QPushButton("Process files");
+    m_processButton = new QPushButton("Save");
     m_processButton->setObjectName("compressButton");
     m_processButton->setCursor(Qt::PointingHandCursor);
     m_processButton->setMinimumHeight(40);

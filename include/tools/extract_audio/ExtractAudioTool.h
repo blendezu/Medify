@@ -17,5 +17,6 @@ public:
     QString getOutputSuggestion(const QString& firstInputPath, int filterMode) const override;
 private:
     QComboBox* m_formatBox;
+    QComboBox* m_qualityBox;
 };
 #endif
