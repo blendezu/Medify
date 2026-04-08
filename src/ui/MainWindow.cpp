@@ -8,6 +8,7 @@
 #include "../tools/pdf_to_image/PdfToImageTool.h"
 #include "../tools/pdf_to_image/PdfToImageWidget.h"
 #include "../tools/split_pdf/SplitPdfTool.h"
+#include "../tools/split_pdf/SplitPdfWidget.h"
 #include "../tools/extract_audio/ExtractAudioTool.h"
 #include "../tools/audio_converter/AudioConverterTool.h"
 #include "../tools/video_converter/VideoConverterTool.h"
@@ -52,11 +53,16 @@ void MainWindow::setupUi() {
     // Dedicated widget for PDF to Images (index 2 in stack)
     m_pdfToImageWidget = new PdfToImageWidget(this);
     connect(m_pdfToImageWidget, &PdfToImageWidget::requestBackToDashboard, this, &MainWindow::onBackToDashboard);
-    
+
+    // Dedicated widget for Split PDF (index 3 in stack)
+    m_splitPdfWidget = new SplitPdfWidget(this);
+    connect(m_splitPdfWidget, &SplitPdfWidget::requestBackToDashboard, this, &MainWindow::onBackToDashboard);
+
     m_stackedWidget->addWidget(m_dashboardWidget);  // index 0
     m_stackedWidget->addWidget(m_baseToolWidget);    // index 1
     m_stackedWidget->addWidget(m_pdfToImageWidget);  // index 2
-    
+    m_stackedWidget->addWidget(m_splitPdfWidget);    // index 3
+
     m_stackedWidget->setCurrentIndex(0);
 }
 
@@ -97,8 +103,9 @@ void MainWindow::buildDashboard() {
 
 void MainWindow::onDashboardTileClicked(int index) {
     if (index == 1) {
-        // PDF to Images: use the dedicated thumbnail widget
-        m_stackedWidget->setCurrentIndex(2);
+        m_stackedWidget->setCurrentIndex(2); // PdfToImageWidget
+    } else if (index == 2) {
+        m_stackedWidget->setCurrentIndex(3); // SplitPdfWidget
     } else if (index >= 0 && index < m_tools.size()) {
         m_baseToolWidget->setTool(m_tools[index]);
         m_stackedWidget->setCurrentIndex(1);

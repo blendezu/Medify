@@ -12,6 +12,8 @@ void ExtractAudioTool::buildSettingsUi(QWidget* container) {
     QLabel *lbl = new QLabel("Convert To:");
     m_formatBox = new QComboBox();
     m_formatBox->addItems({"mp3", "wav"});
+    m_formatBox->setSizeAdjustPolicy(QComboBox::AdjustToContents);
+    m_formatBox->setMinimumWidth(90);
     h->addWidget(lbl); h->addWidget(m_formatBox); h->addStretch();
     QWidget *w = new QWidget(); w->setLayout(h);
     container->layout()->addWidget(w);

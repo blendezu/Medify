@@ -8,6 +8,7 @@
 #include "../tools/ITool.h"
 
 class PdfToImageWidget;
+class SplitPdfWidget;
 
 class MainWindow : public QMainWindow {
     Q_OBJECT
@@ -28,6 +29,7 @@ private:
     QWidget *m_dashboardWidget;
     BaseToolWidget *m_baseToolWidget;
     PdfToImageWidget *m_pdfToImageWidget;
+    SplitPdfWidget *m_splitPdfWidget;
     
     QList<ITool*> m_tools;
 };

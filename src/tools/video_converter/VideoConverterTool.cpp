@@ -12,6 +12,8 @@ void VideoConverterTool::buildSettingsUi(QWidget* container) {
     QLabel *lbl = new QLabel("Convert To Container:");
     m_formatBox = new QComboBox();
     m_formatBox->addItems({"mp4", "mkv", "avi", "mov"});
+    m_formatBox->setSizeAdjustPolicy(QComboBox::AdjustToContents);
+    m_formatBox->setMinimumWidth(90);
     h->addWidget(lbl); h->addWidget(m_formatBox); h->addStretch();
     QWidget *w = new QWidget(); w->setLayout(h);
     container->layout()->addWidget(w);
