@@ -7,6 +7,8 @@
 #include "BaseToolWidget.h"
 #include "../tools/ITool.h"
 
+class PdfToImageWidget;
+
 class MainWindow : public QMainWindow {
     Q_OBJECT
 public:
@@ -25,6 +27,7 @@ private:
     QStackedWidget *m_stackedWidget;
     QWidget *m_dashboardWidget;
     BaseToolWidget *m_baseToolWidget;
+    PdfToImageWidget *m_pdfToImageWidget;
     
     QList<ITool*> m_tools;
 };

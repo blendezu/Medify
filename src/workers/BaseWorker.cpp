@@ -24,7 +24,10 @@ void BaseWorker::onProcessFinished(int exitCode, QProcess::ExitStatus exitStatus
     if (exitStatus == QProcess::CrashExit) {
         emit finished(false, "Process crashed");
     } else if (exitCode != 0) {
-        emit finished(false, QString("Process failed with exit code %1").arg(exitCode));
+        QString errOutput = m_process->readAllStandardError().trimmed();
+        QString msg = QString("Exit code %1").arg(exitCode);
+        if (!errOutput.isEmpty()) msg += "\n\n" + errOutput;
+        emit finished(false, msg);
     } else {
         emit finished(true, "");
     }

@@ -8,7 +8,7 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
 
-find_package(Qt6 COMPONENTS Core Gui Widgets REQUIRED)
+find_package(Qt6 COMPONENTS Core Gui Widgets Pdf REQUIRED)
 
 file(GLOB_RECURSE EXEC_SRCS
     "src/*.cpp"
@@ -30,4 +30,4 @@ target_include_directories(Medify PRIVATE
     include/tools/audio_converter
     include/tools/video_converter
 )
-target_link_libraries(Medify PRIVATE Qt6::Core Qt6::Gui Qt6::Widgets)
+target_link_libraries(Medify PRIVATE Qt6::Core Qt6::Gui Qt6::Widgets Qt6::Pdf)

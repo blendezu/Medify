@@ -6,6 +6,7 @@
 
 #include "../tools/compress_media/CompressMediaTool.h"
 #include "../tools/pdf_to_image/PdfToImageTool.h"
+#include "../tools/pdf_to_image/PdfToImageWidget.h"
 #include "../tools/images_to_pdf/ImagesToPdfTool.h"
 #include "../tools/split_pdf/SplitPdfTool.h"
 #include "../tools/extract_audio/ExtractAudioTool.h"
@@ -49,9 +50,14 @@ void MainWindow::setupUi() {
     
     m_baseToolWidget = new BaseToolWidget(this);
     connect(m_baseToolWidget, &BaseToolWidget::requestBackToDashboard, this, &MainWindow::onBackToDashboard);
+
+    // Dedicated widget for PDF to Images (index 2 in stack)
+    m_pdfToImageWidget = new PdfToImageWidget(this);
+    connect(m_pdfToImageWidget, &PdfToImageWidget::requestBackToDashboard, this, &MainWindow::onBackToDashboard);
     
-    m_stackedWidget->addWidget(m_dashboardWidget);
-    m_stackedWidget->addWidget(m_baseToolWidget);
+    m_stackedWidget->addWidget(m_dashboardWidget);  // index 0
+    m_stackedWidget->addWidget(m_baseToolWidget);    // index 1
+    m_stackedWidget->addWidget(m_pdfToImageWidget);  // index 2
     
     m_stackedWidget->setCurrentIndex(0);
 }
@@ -92,7 +98,10 @@ void MainWindow::buildDashboard() {
 }
 
 void MainWindow::onDashboardTileClicked(int index) {
-    if (index >= 0 && index < m_tools.size()) {
+    if (index == 1) {
+        // PDF to Images: use the dedicated thumbnail widget
+        m_stackedWidget->setCurrentIndex(2);
+    } else if (index >= 0 && index < m_tools.size()) {
         m_baseToolWidget->setTool(m_tools[index]);
         m_stackedWidget->setCurrentIndex(1);
     }
