@@ -66,6 +66,6 @@ QString CompressMediaTool::formatSize(qint64 bytes) const {
 
 qint64 CompressMediaTool::mapSliderToBytes(int sliderValue) const {
     if (m_currentOriginalSize <= 0) return 0;
-    qint64 minSize = m_currentOriginalSize * 0.1;
+    qint64 minSize = m_currentOriginalSize * 0.01;
     return minSize + (m_currentOriginalSize - minSize) * sliderValue / 100;
 }
